@@ -1,0 +1,158 @@
+body{
+    background:#000 ;
+}
+
+.custom_nav li a{color:#fff!important;padding:15px!important;}
+.slide_text h1{
+	color:#fff!important;
+}
+.slide_text{
+	color:#fff;
+}
+.custom_nav li a:hover{
+	background:#d9bf77!important;
+	border-radius:60px 0px 60px 0;
+	color:#fff!important;
+}
+
+.intro{
+	background:url(../images/tree.png);
+	background-color:#000;
+    background-attachment: fixed;
+}
+
+#about h2{
+	text-align: right;
+}
+.offer-deal  h3,p{
+    color:#fff;
+}
+
+/*Services */
+.ftco-section-services{
+    padding:60px 0 0 0;
+}
+.services h3{
+    color:#fff;
+}
+.service{
+	background:url(../images/serv_bg.jpg);
+	background-size: cover;
+	background-attachment:fixed ;
+}
+.service h2{
+	color:#d9bf77;
+}
+.serv_box{
+	background:rgba(0, 0, 0, 0.5);
+	border:1px solid #fff;
+	margin-bottom:5px;
+	color:#fff;
+}
+.serv_box h3{
+	color:#d9bf77;
+}
+.serv_box  li{
+	background:#d9bf77;
+    color:#fff;
+    padding:10px;
+    margin-top:10px;
+    text-align:left;
+    list-style: none;
+
+}
+
+
+
+.gl_btn{text-align: center;
+    margin-top:30px;
+
+}
+.gl_btn a {
+    background:#d9bf77;
+    color:#fff;
+    font-size:20px;
+    padding:10px;
+}
+
+.gl_box{
+    margin-top:10px;
+}
+
+
+
+/*Booking */
+
+.booking-form {
+    
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.booking-form h2 {
+    margin: 0 0 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border:none;
+    border-bottom: 1px solid #ddd;
+    border-radius: 4px;
+    background:rgba(130, 123, 72, 0.4);
+    color:#fff;
+}
+#appointmentTime{
+    color:#fff;
+    font-display:left;
+}
+
+.form-group textarea:focus{
+    
+    border: 1px solid red;
+}
+option{
+    background:#000;
+    color:#fff;
+}
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-group button {
+    background-color: #d9bf77;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-group button:hover {
+    background-color: #d9bf77;
+}
+
+.error {
+    color: red;
+    margin-top: 5px;
+}
+
+.contact h3{
+    color:#fff;
+}
+.footer{
+    padding:20px 0;
+}

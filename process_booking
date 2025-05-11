@@ -1,0 +1,96 @@
+<?php
+// Database connection (update with your details)
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "parlour";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Get form data
+$name = $_POST['name'];
+$email = $_POST['email'];
+$phone = $_POST['phone'];
+$service = $_POST['service'];
+$appointmentDate = $_POST['appointmentDate'];
+$appointmentTime = $_POST['appointmentTime'];
+$comments = $_POST['comments'];
+
+// Generate a unique verification code
+$verificationCode = md5(uniqid($email, true));
+
+// Insert booking into the database
+$sql = "INSERT INTO bookings (name, email, phone, service, appointmentDate, appointmentTime, comments, verificationCode, verified) 
+        VALUES ('$name', '$email', '$phone', '$service', '$appointmentDate', '$appointmentTime', '$comments', '$verificationCode', 0)";
+
+if ($conn->query($sql) === TRUE) {
+    // Send verification email to the client
+    $to = $email;
+    $subject = "Verify Your Appointment Booking";
+    $message = "
+    <html>
+    <head>
+        <title>Verify Your Appointment</title>
+    </head>
+    <body>
+        <p>Hello $name,</p>
+        <p>Thank you for booking an appointment with us. Please click the link below to verify your appointment:</p>
+        <p><a href='http://yourdomain.com/verify.php?code=$verificationCode'>Verify Your Appointment</a></p>
+        <p>If you did not book this appointment, please ignore this email.</p>
+        <p>Best regards,<br>Your Parlour</p>
+    </body>
+    </html>
+    ";
+    
+    // To send HTML mail, the Content-type header must be set
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    $headers .= 'From: yourparlour@example.com' . "\r\n";
+    
+    if (mail($to, $subject, $message, $headers)) {
+        // Send confirmation email to owner
+        $ownerEmail = "owner@example.com";
+        $ownerSubject = "New Appointment Booking";
+        $ownerMessage = "
+        <html>
+        <head>
+            <title>New Appointment Booking</title>
+        </head>
+        <body>
+            <p>A new appointment has been booked:</p>
+            <p><strong>Name:</strong> $name<br>
+            <strong>Email:</strong> $email<br>
+            <strong>Phone:</strong> $phone<br>
+            <strong>Service:</strong> $service<br>
+            <strong>Date:</strong> $appointmentDate<br>
+            <strong>Time:</strong> $appointmentTime<br>
+            <strong>Comments:</strong> $comments</p>
+        </body>
+        </html>
+        ";
+        
+        // To send HTML mail, the Content-type header must be set
+        $ownerHeaders = "MIME-Version: 1.0" . "\r\n";
+        $ownerHeaders .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $ownerHeaders .= 'From: yourparlour@example.com' . "\r\n";
+        
+        if (mail($ownerEmail, $ownerSubject, $ownerMessage, $ownerHeaders)) {
+            echo "Booking successful! Please check your email to verify your appointment.";
+        } else {
+            echo "Failed to send owner email.";
+        }
+    } else {
+        echo "Failed to send verification email.";
+    }
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$conn->close();
+?>

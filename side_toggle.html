@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sliding Collapsible Content</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .content-container {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .content-item {
+            margin-bottom: 20px;
+        }
+
+        .toggle-btn {
+            display: inline-block;
+            font-size: 24px;
+            background-color: #333;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .toggle-btn:hover {
+            background-color: #444;
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, transform 0.3s ease;
+            transform: translateX(100%);
+            background-color: #f9f9f9;
+            padding: 0 20px;
+            box-shadow: -3px 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .collapsible-content.active {
+            max-height: 200px;
+            transform: translateX(0);
+        }
+
+        .toggle-btn.active {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content-container">
+        <div class="content-item">
+            <button class="toggle-btn active" data-target="content1">-</button>
+            <div id="content1" class="collapsible-content active">
+                <h2>Content 1</h2>
+                <p>This is the first content section.</p>
+            </div>
+        </div>
+
+        <div class="content-item">
+            <button class="toggle-btn" data-target="content2">+</button>
+            <div id="content2" class="collapsible-content">
+                <h2>Content 2</h2>
+                <p>This is the second content section.</p>
+            </div>
+        </div>
+
+        <div class="content-item">
+            <button class="toggle-btn" data-target="content3">+</button>
+            <div id="content3" class="collapsible-content">
+                <h2>Content 3</h2>
+                <p>This is the third content section.</p>
+            </div>
+        </div>
+
+        <div class="content-item">
+            <button class="toggle-btn" data-target="content4">+</button>
+            <div id="content4" class="collapsible-content">
+                <h2>Content 4</h2>
+                <p>This is the fourth content section.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButtons = document.querySelectorAll('.toggle-btn');
+            const collapsibleContents = document.querySelectorAll('.collapsible-content');
+
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetContent = document.getElementById(button.getAttribute('data-target'));
+
+                    // Collapse all sections
+                    collapsibleContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    toggleButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.textContent = "+";
+                    });
+
+                    // Toggle the clicked section
+                    if (targetContent.classList.contains('active')) {
+                        targetContent.classList.remove('active');
+                        button.textContent = "+";
+                    } else {
+                        targetContent.classList.add('active');
+                        button.textContent = "-";
+                        button.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
